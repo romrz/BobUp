@@ -25,7 +25,8 @@ public class Controller2D : RaycastController {
             HandleVerticalCollisions(ref distance);
         }
 
-        transform.Translate(distance);
+        transform.position = transform.position + distance;
+        //transform.Translate(distance);
 
         if (standingOnPlatform) {
             collisionState.below = true;
@@ -155,6 +156,14 @@ public class Controller2D : RaycastController {
 
         public bool hasCollision() {
             return above || below || left || right;
+        }
+
+        public bool hasHorizontalCollision() {
+            return left || right;
+        }
+
+        public bool hasVerticalCollision() {
+            return above || below;
         }
     }
 }

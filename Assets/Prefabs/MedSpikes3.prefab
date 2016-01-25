@@ -9,9 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 437356}
   - 212: {fileID: 21285464}
-  m_Layer: 0
+  - 60: {fileID: 6022078}
+  m_Layer: 9
   m_Name: Spike
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,9 +26,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 418838}
   - 212: {fileID: 21250780}
-  m_Layer: 0
+  - 60: {fileID: 6016458}
+  m_Layer: 9
   m_Name: Spike (1)
-  m_TagString: Untagged
+  m_TagString: Spike
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,6 +89,40 @@ Transform:
   - {fileID: 418838}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!60 &6016458
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150302}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -0.08, y: 0.047323056}
+      - {x: -0.07894588, y: -0.04310669}
+      - {x: -0.023647621, y: 0.005159244}
+--- !u!60 &6022078
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 109670}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -0.077891834, y: 0.050485343}
+      - {x: -0.07894591, y: -0.043106683}
+      - {x: -0.022593528, y: 0.0030510575}
 --- !u!61 &6143326
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -197,7 +233,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Spike
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196354}

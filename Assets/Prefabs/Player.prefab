@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 476182}
   - 212: {fileID: 21216532}
   - 61: {fileID: 6197844}
+  - 50: {fileID: 5007990}
   - 114: {fileID: 11450656}
   - 114: {fileID: 11426744}
   m_Layer: 0
@@ -27,10 +28,27 @@ Transform:
   m_GameObject: {fileID: 160752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5007990
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160752}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &6197844
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -56,8 +74,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f224a56966854a4bb8bb5e08721d0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpVelocity: {x: 4, y: 4}
-  _gravity: 1
+  _jumpVelocity: {x: 3, y: 5}
+  _gravity: 4
+  maxSlideSpeed: 2
 --- !u!114 &11450656
 MonoBehaviour:
   m_ObjectHideFlags: 1
