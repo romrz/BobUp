@@ -421,6 +421,34 @@ Prefab:
       propertyPath: scaleOnDie
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 21216532, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21216532, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21216532, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21216532, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21216532, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 476182, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 476182, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 738aa701ea1653649a1cee21aa4689b0, type: 2}
   m_IsPrefabParent: 0
@@ -496,6 +524,11 @@ MonoBehaviour:
   - {fileID: 189162, guid: 21c53e704d1c9164e9e4f6ed9a31b24e, type: 2}
   - {fileID: 151942, guid: 6a78501e4d673c042ba0f8c164462568, type: 2}
   - {fileID: 155800, guid: afb435cf52b21d54ab38ed6f2e12bafc, type: 2}
+  - {fileID: 199540, guid: 51b47a98f99ba4645897517cdd0252de, type: 2}
+  - {fileID: 108972, guid: 5281bcf09b9e11b4da7c068eb13e5213, type: 2}
+  - {fileID: 178140, guid: c7e425d25b9dfd94f84b55bb2b94c18c, type: 2}
+  - {fileID: 107566, guid: e4b2470ce716fff4d8d705a2e34b5dd7, type: 2}
+  - {fileID: 125228, guid: 8dd68a67e6bb7a54e953c1d0f1cac6ac, type: 2}
   blocks2:
   - {fileID: 126156, guid: f2bd18cf276c49e4da4197638510cb6e, type: 2}
   - {fileID: 138438, guid: d5b08e2dea2ec34498d0fe906c0fbe2b, type: 2}
@@ -512,6 +545,10 @@ MonoBehaviour:
   - {fileID: 197424, guid: 306553d8bc173c7468d80b15681bd2ce, type: 2}
   - {fileID: 172778, guid: 50d0d684914114f48b6197751803747e, type: 2}
   - {fileID: 145214, guid: 2afc6e68f018042468e7e064c1c23c73, type: 2}
+  - {fileID: 172252, guid: b951c84930d24464fbbfc129ac02bfbb, type: 2}
+  - {fileID: 172252, guid: b951c84930d24464fbbfc129ac02bfbb, type: 2}
+  - {fileID: 172252, guid: b951c84930d24464fbbfc129ac02bfbb, type: 2}
+  - {fileID: 172252, guid: b951c84930d24464fbbfc129ac02bfbb, type: 2}
   spikes2:
   - {fileID: 198550, guid: 77e0e7182f6642248b1defdddd6008c4, type: 2}
   - {fileID: 156202, guid: 7ea747eef15250f40bed62bb2dce3035, type: 2}
@@ -522,6 +559,7 @@ MonoBehaviour:
   - {fileID: 143494, guid: 683b52ed10e77ed46bab4fe9950f1a98, type: 2}
   - {fileID: 143494, guid: 683b52ed10e77ed46bab4fe9950f1a98, type: 2}
   - {fileID: 143494, guid: 683b52ed10e77ed46bab4fe9950f1a98, type: 2}
+  horizontalLaserBlock: {fileID: 0}
   wallProbability: 70
   spikesProbability: 30
   tilesWide: 6

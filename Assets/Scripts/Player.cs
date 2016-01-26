@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
     private Controller2D characterController;
 
     private bool isAlive = true;
+    private bool thrownBySpring = false;
 
     private float _rotateDir;
 
@@ -84,6 +85,13 @@ public class Player : MonoBehaviour {
             transform.Rotate(Vector3.forward * rotationOnDie * _rotateDir * Time.deltaTime);
         }
 
+        if(thrownBySpring)
+        {
+            _velocity.y = _jumpVelocity.y;
+            _velocity.x = 3.0f * _jumpVelocity.x * Mathf.Sign(transform.position.x) * -1f;
+            thrownBySpring = false;
+        }
+
         _velocity.y -= _gravity * Time.deltaTime;
 
         characterController.Move(_velocity * Time.deltaTime);
@@ -110,6 +118,19 @@ public class Player : MonoBehaviour {
             collision.gameObject.GetComponent<Bomb>().explode();
             Destroy(collision.gameObject);
             Camera.main.GetComponent<CameraShake>().Shake();
+        }
+        else if(collision.gameObject.tag == "Laser") {
+            if(collision.gameObject.GetComponent<Laser>().isActive())
+            {
+                Die();
+                Camera.main.GetComponent<CameraShake>().Shake(0.1f, 0.002f);
+            }
+        }
+        else if(collision.gameObject.tag == "Spring") {
+            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated())
+            {
+                thrownBySpring = true;
+            }
         }
     }
 	

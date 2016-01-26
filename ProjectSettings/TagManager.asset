@@ -7,6 +7,12 @@ TagManager:
   - Spike
   - Bomb
   - Explosion
+  - Laser
+  - DoubleJump
+  - Fast
+  - Big
+  - Sticky
+  - Spring
   layers:
   - Default
   - TransparentFX

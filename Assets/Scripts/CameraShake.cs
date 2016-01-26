@@ -23,10 +23,14 @@ public class CameraShake : MonoBehaviour {
 
     public void Shake()
     {
-        _shake_intensity = shake_intensity;
+        Shake(shake_intensity, shake_decay);
+    }
+    public void Shake(float intensity, float decay)
+    {
+        _shake_intensity = intensity;
         originPosition = transform.position;
         originRotation = transform.rotation;
-        _shake_decay = shake_decay;
+        _shake_decay = decay;
 
         InvokeRepeating("ShakeCamera", 0, .01f);
         Invoke("StopShaking", 1f);       

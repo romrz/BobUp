@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour {
     public GameObject[] spikes1;
     public GameObject[] spikes2;
     public GameObject[] spikes3;
+    public GameObject horizontalLaserBlock;
 
     public float wallProbability = 70;
     public float spikesProbability = 30;
