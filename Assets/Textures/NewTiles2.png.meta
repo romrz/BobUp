@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 71af839b041f7b547a12259beac64d86
-timeCreated: 1453790159
+guid: bdd5c02b397c9204b9d7d3f537ea995e
+timeCreated: 1453828180
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: NewTiles_0
-    21300002: NewTiles_1
-    21300004: NewTiles_2
-    21300006: NewTiles_3
-    21300008: NewTiles_4
-    21300010: NewTiles_5
-    21300012: NewTiles_6
-    21300014: NewTiles_7
-    21300016: NewTiles_8
-    21300018: NewTiles_9
+    21300000: NewTiles2_0
+    21300002: NewTiles2_1
+    21300004: NewTiles2_2
+    21300006: NewTiles2_3
+    21300008: NewTiles2_4
+    21300010: NewTiles2_5
+    21300012: NewTiles2_6
+    21300014: NewTiles2_7
+    21300016: NewTiles2_8
+    21300018: NewTiles2_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,7 +60,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: NewTiles_0
+    - name: NewTiles2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -71,7 +71,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_1
+    - name: NewTiles2_1
       rect:
         serializedVersion: 2
         x: 16
@@ -82,7 +82,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_2
+    - name: NewTiles2_2
       rect:
         serializedVersion: 2
         x: 0
@@ -93,7 +93,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_3
+    - name: NewTiles2_3
       rect:
         serializedVersion: 2
         x: 16
@@ -104,7 +104,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_4
+    - name: NewTiles2_4
       rect:
         serializedVersion: 2
         x: 0
@@ -115,7 +115,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_5
+    - name: NewTiles2_5
       rect:
         serializedVersion: 2
         x: 16
@@ -126,7 +126,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_6
+    - name: NewTiles2_6
       rect:
         serializedVersion: 2
         x: 0
@@ -137,7 +137,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_7
+    - name: NewTiles2_7
       rect:
         serializedVersion: 2
         x: 16
@@ -148,7 +148,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_8
+    - name: NewTiles2_8
       rect:
         serializedVersion: 2
         x: 0
@@ -159,7 +159,7 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: NewTiles_9
+    - name: NewTiles2_9
       rect:
         serializedVersion: 2
         x: 16

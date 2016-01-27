@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aad2a1c214925546a12262f026224fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionSprite: {fileID: 21300014, guid: 71af839b041f7b547a12259beac64d86, type: 3}
+  actionSprite: {fileID: 21300014, guid: bdd5c02b397c9204b9d7d3f537ea995e, type: 3}
   activateOnCollsion: 1
 --- !u!212 &21232480
 SpriteRenderer:
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300012, guid: 71af839b041f7b547a12259beac64d86, type: 3}
+  m_Sprite: {fileID: 21300012, guid: bdd5c02b397c9204b9d7d3f537ea995e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,17 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300012, guid: bdd5c02b397c9204b9d7d3f537ea995e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: actionSprite
+      value: 
+      objectReference: {fileID: 21300014, guid: bdd5c02b397c9204b9d7d3f537ea995e,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 107566}

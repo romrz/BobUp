@@ -13,6 +13,7 @@ GameObject:
   - 50: {fileID: 5007990}
   - 114: {fileID: 11450656}
   - 114: {fileID: 11426744}
+  - 95: {fileID: 9569524}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -63,6 +64,23 @@ BoxCollider2D:
   m_Offset: {x: 0.0061400733, y: -0.0067541003}
   serializedVersion: 2
   m_Size: {x: 0.14912707, y: 0.13070685}
+--- !u!95 &9569524
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160752}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7013793934cb154faf7e72dbf72ec52, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11426744
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,10 +94,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpHeight: 4
   jumpTime: 1
-  maxSlideSpeed: 2
+  maxSlideSpeed: 1
+  recoveryTime: 1
+  normalScale: {x: 4.5, y: 4.5, z: 1}
   tilesWide: 6
   rotationOnDie: 120
   scaleOnDie: 8
+  normalAnimator: {fileID: 9100000, guid: f7013793934cb154faf7e72dbf72ec52, type: 2}
+  fastAnimator: {fileID: 9100000, guid: e0815da0bf66b25499aff2aa633b8ef9, type: 2}
+  stickyAnimator: {fileID: 9100000, guid: 82afef2925279a74792da9ca0a569466, type: 2}
+  bigScale: 1.5
+  jumpTimeNormal: 1
+  jumpTimeFast: 0.5
+  maxSlideSpeedSNormal: 1.5
+  maxSlideSpeedSticky: 0.3
 --- !u!114 &11450656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,9 +149,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1174696619
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d86e5d8b9efd974469d8d9574ee233da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ee9db87d7735614fa1b7b08c453c5e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
