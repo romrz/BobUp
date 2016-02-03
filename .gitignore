@@ -3,5 +3,6 @@
 
 # Except for these:
 !/.gitignore
+!/Readme.md
 !/Assets
 !/ProjectSettings
