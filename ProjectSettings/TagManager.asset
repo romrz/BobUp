@@ -13,6 +13,8 @@ TagManager:
   - Big
   - Sticky
   - Spring
+  - GameOver
+  - Score
   layers:
   - Default
   - TransparentFX
@@ -52,4 +54,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1174696619
+    locked: 0
+  - name: Hud
+    uniqueID: 662222769
     locked: 0

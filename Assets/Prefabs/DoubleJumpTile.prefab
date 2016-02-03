@@ -57,6 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionSprite: {fileID: 21300002, guid: bdd5c02b397c9204b9d7d3f537ea995e, type: 3}
   activateOnCollsion: 1
+  sound: {fileID: 8300000, guid: a8c7a0f3e2fd4314f87e1b5c227dda6c, type: 3}
 --- !u!212 &21203546
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,6 +105,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300002, guid: bdd5c02b397c9204b9d7d3f537ea995e,
         type: 3}
+    - target: {fileID: 0}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 8300000, guid: a8c7a0f3e2fd4314f87e1b5c227dda6c, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 199540}

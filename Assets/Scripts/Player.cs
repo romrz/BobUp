@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Player : MonoBehaviour {
@@ -6,6 +8,8 @@ public class Player : MonoBehaviour {
     public float jumpHeight;
     public float jumpTime;
     public float maxSlideSpeed = 2.0f;
+    public Vector2 jumpWallVelocity;
+    public Vector2 jumpWallVelocityFast;
 
     public float recoveryTime = 1.0f;
 
@@ -19,6 +23,13 @@ public class Player : MonoBehaviour {
     public RuntimeAnimatorController fastAnimator;
     public RuntimeAnimatorController stickyAnimator;
 
+    public AudioClip normalJumpSound;
+    public AudioClip bigJumpSound;
+    public AudioClip fastJumpSound;
+    public AudioClip stickyJumpSound;
+    public AudioClip dieSound;
+    public AudioClip hurtSound;
+
     public float bigScale = 2.0f;
 
     public float jumpTimeNormal = 1f;
@@ -27,13 +38,15 @@ public class Player : MonoBehaviour {
     public float maxSlideSpeedSNormal = 1.5f;
     public float maxSlideSpeedSticky = 0.3f;
 
+    public ShowUpText showUpText;
+    public SpriteRenderer doubleJumpRenderer;
+
     private Vector2 _jumpVelocity;
     private float _gravity;
     private Vector3 _velocity;
     private float horizontalAcceleration = 10;
     private bool onWallClimb = false;
     private float jumpSide;
-    public Vector2 jumpWallVelocity;
 
     private Controller2D characterController;
     private Animator animator;
@@ -42,7 +55,8 @@ public class Player : MonoBehaviour {
     private bool isAlive = true;
     private bool inRecovery = false;
     private bool thrownBySpring = false;
-    private bool doubleJump = true;
+    private bool doubleJump = false;
+    private int doubleJumpCount = 0;
     private int jumpCount = 0;
 
     private float _rotateDir;
@@ -72,6 +86,8 @@ public class Player : MonoBehaviour {
         animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = normalAnimator;
         animator.Play("Idle");
+
+        EnableDoubleJump(false);
     }
 
     void CalculatePhysics() {
@@ -123,15 +139,47 @@ public class Player : MonoBehaviour {
                 _velocity = _jumpVelocity;
                 if (Input.mousePosition.x <= Camera.main.pixelWidth / 2)
                 {
-                    _velocity.x *= -1;
+                    onWallClimb = false;
+                    if (characterController.collisionState.left)
+                    {
+                        onWallClimb = true;
+                        jumpSide = -1;
+                        _velocity = state == State.Fast ? jumpWallVelocityFast : jumpWallVelocity;
+                    }
+                    else
+                    {
+                        _velocity.x = -_jumpVelocity.x;
+                        _velocity.y = _jumpVelocity.y;
+                    }
+
                     animator.Play("PlayerRightArrive");
                 }
                 else
                 {
+                    onWallClimb = false;
+                    if (characterController.collisionState.right)
+                    {
+                        onWallClimb = true;
+                        jumpSide = 1;
+                        _velocity = state == State.Fast ? jumpWallVelocityFast : jumpWallVelocity;
+                        _velocity.x *= -1;
+                    }
+                    else
+                    {
+                        _velocity.x = _jumpVelocity.x;
+                        _velocity.y = _jumpVelocity.y;
+                    }
                     animator.Play("PlayerLeftArrive");
                 }
+
+                jumpCount++;
+                if(jumpCount == 2)
+                {
+                    EnableDoubleJump(false);
+                }
+
                 place = Place.Air;
-                
+                PlayJumpSound();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow) && (characterController.collisionState.hasCollision() || (doubleJump && jumpCount < 2)))
@@ -141,8 +189,7 @@ public class Player : MonoBehaviour {
                 {
                     onWallClimb = true;
                     jumpSide = -1;
-                    _velocity.x = jumpWallVelocity.x;
-                    _velocity.y = jumpWallVelocity.y;
+                    _velocity = state == State.Fast ? jumpWallVelocityFast : jumpWallVelocity;
                 }
                 else
                 {
@@ -151,9 +198,14 @@ public class Player : MonoBehaviour {
                 }
 
                 jumpCount++;
+                if (jumpCount == 2)
+                {
+                    EnableDoubleJump(false);
+                }
 
                 place = Place.Air;
                 animator.Play("PlayerRightArrive");
+                PlayJumpSound();
             }
             if (Input.GetKeyDown(KeyCode.RightArrow) && (characterController.collisionState.hasCollision() || (doubleJump && jumpCount < 2)))
             {
@@ -162,8 +214,8 @@ public class Player : MonoBehaviour {
                 {
                     onWallClimb = true;
                     jumpSide = 1;
-                    _velocity.x = -jumpWallVelocity.x;
-                    _velocity.y = jumpWallVelocity.y;
+                    _velocity = state == State.Fast ? jumpWallVelocityFast : jumpWallVelocity;
+                    _velocity.x *= -1;
                 }
                 else
                 {
@@ -172,9 +224,14 @@ public class Player : MonoBehaviour {
                 }
 
                 jumpCount++;
+                if (jumpCount == 2)
+                {
+                    EnableDoubleJump(false);
+                }
 
                 place = Place.Air;
                 animator.Play("PlayerLeftArrive");
+                PlayJumpSound();
             }
         }
         else {
@@ -190,11 +247,45 @@ public class Player : MonoBehaviour {
 
         if(onWallClimb)
         {
-            _velocity.x += horizontalAcceleration * jumpSide * Time.deltaTime;
+            if (state == State.Fast)
+            {
+                _velocity.x += horizontalAcceleration * 2 * jumpSide * Time.deltaTime;
+            }
+            else
+            {
+                _velocity.x += horizontalAcceleration * jumpSide * Time.deltaTime;
+            }
         }
         _velocity.y -= _gravity * Time.deltaTime;
 
         characterController.Move(_velocity * Time.deltaTime);
+    }
+
+    void EnableDoubleJump(bool enable)
+    {
+        doubleJump = enable;
+        doubleJumpRenderer.enabled = enable;
+    }
+
+    void PlayJumpSound() {
+        switch(state) {
+            case State.Normal:
+                if(SoundManager.instance == null)
+                {
+                    Debug.Log("Instance = null");
+                }
+                SoundManager.instance.PlaySingle(normalJumpSound);
+                break;
+            case State.Big:
+                SoundManager.instance.PlaySingle(bigJumpSound);
+                break;
+            case State.Fast:
+                SoundManager.instance.PlaySingle(fastJumpSound);
+                break;
+            case State.Sticky:
+                SoundManager.instance.PlaySingle(stickyJumpSound);
+                break;
+        }
     }
 
     public bool IsAlive() {
@@ -215,12 +306,16 @@ public class Player : MonoBehaviour {
     void Die() {
         if (inRecovery) return;
         if(state != State.Normal) {
+            SoundManager.instance.PlaySingle(hurtSound);
             SetNormalState();
+            showUpText.ShowText("Just Bob");
             inRecovery = true;
             InvokeRepeating("RecoveryAnimation", 0, .1f);
             Invoke("StopRecoveryAnimation", recoveryTime);
             return;
         }
+
+        SoundManager.instance.PlaySingle(hurtSound);
 
         onWallClimb = false;
 
@@ -229,6 +324,8 @@ public class Player : MonoBehaviour {
         _velocity = new Vector2(-Mathf.Sign(transform.position.x), 7);
         _rotateDir = -Mathf.Sign(transform.position.x);
         GetComponent<Rigidbody2D>().isKinematic = true;
+
+        SoundManager.instance.PlaySingle(dieSound);
     }
 
     void RecoveryAnimation()
@@ -241,6 +338,25 @@ public class Player : MonoBehaviour {
         inRecovery = false;
         renderer.enabled = true;
         CancelInvoke("RecoveryAnimation");
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "GameOver")
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Laser" && !inRecovery)
+        {
+            if (collision.gameObject.GetComponent<Laser>().isActive())
+            {
+                Die();
+                Camera.main.GetComponent<CameraShake>().Shake(0.1f, 0.002f);
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -276,95 +392,120 @@ public class Player : MonoBehaviour {
         }
         else if(collision.gameObject.tag == "Big")
         {
-            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated() && state != State.Big)
+            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated())
             {
-                state = State.Big;
-                animator.runtimeAnimatorController = normalAnimator;
-
-                // TODO: Refactor This! DRY!
-                if (transform.position.x < 0)
+                showUpText.ShowText("Big Bob!");
+                if (state != State.Big)
                 {
-                    float originX = GetComponent<BoxCollider2D>().bounds.min.x;
-                    transform.localScale = normalScale * bigScale;
-                    float newX = GetComponent<BoxCollider2D>().bounds.min.x;
-                    transform.position += new Vector3(originX - newX, 0, 0);
-                }
-                else
-                {
-                    float originX = GetComponent<BoxCollider2D>().bounds.max.x;
-                    transform.localScale = normalScale * bigScale;
-                    float newX = GetComponent<BoxCollider2D>().bounds.max.x;
-                    transform.position += new Vector3(originX - newX, 0, 0);
-                }
+                    state = State.Big;
+                    animator.runtimeAnimatorController = normalAnimator;
 
-                jumpTime = jumpTimeNormal;
-                maxSlideSpeed = maxSlideSpeedSNormal;
-                CalculatePhysics();
+                    // TODO: Refactor This! DRY!
+                    if (transform.position.x < 0)
+                    {
+                        float originX = GetComponent<BoxCollider2D>().bounds.min.x;
+                        transform.localScale = normalScale * bigScale;
+                        float newX = GetComponent<BoxCollider2D>().bounds.min.x;
+                        transform.position += new Vector3(originX - newX, 0, 0);
+                    }
+                    else
+                    {
+                        float originX = GetComponent<BoxCollider2D>().bounds.max.x;
+                        transform.localScale = normalScale * bigScale;
+                        float newX = GetComponent<BoxCollider2D>().bounds.max.x;
+                        transform.position += new Vector3(originX - newX, 0, 0);
+                    }
+
+                    jumpTime = jumpTimeNormal;
+                    maxSlideSpeed = maxSlideSpeedSNormal;
+                    CalculatePhysics();
+                }
             }
         }
         else if (collision.gameObject.tag == "Fast")
         {
-            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated() && state != State.Fast)
+            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated())
             {
-                // TODO: Refactor This! DRY!
-                if (state == State.Big)
+                showUpText.ShowText("Fast Bob!");
+                if (state != State.Fast)
                 {
-                    if (transform.position.x < 0)
+                    // TODO: Refactor This! DRY!
+                    if (state == State.Big)
                     {
-                        float originX = GetComponent<BoxCollider2D>().bounds.min.x;
-                        transform.localScale = normalScale;
-                        float newX = GetComponent<BoxCollider2D>().bounds.min.x;
-                        transform.position += new Vector3(originX - newX, 0, 0);
+                        if (transform.position.x < 0)
+                        {
+                            float originX = GetComponent<BoxCollider2D>().bounds.min.x;
+                            transform.localScale = normalScale;
+                            float newX = GetComponent<BoxCollider2D>().bounds.min.x;
+                            transform.position += new Vector3(originX - newX, 0, 0);
+                        }
+                        else
+                        {
+                            float originX = GetComponent<BoxCollider2D>().bounds.max.x;
+                            transform.localScale = normalScale;
+                            float newX = GetComponent<BoxCollider2D>().bounds.max.x;
+                            transform.position += new Vector3(originX - newX, 0, 0);
+                        }
                     }
-                    else
-                    {
-                        float originX = GetComponent<BoxCollider2D>().bounds.max.x;
-                        transform.localScale = normalScale;
-                        float newX = GetComponent<BoxCollider2D>().bounds.max.x;
-                        transform.position += new Vector3(originX - newX, 0, 0);
-                    }
+
+                    state = State.Fast;
+                    animator.runtimeAnimatorController = fastAnimator;
+                    animator.Play(transform.position.x < 0 ? "PlayerLeftArrive" : "PlayeRightArrive");
+
+                    jumpTime = jumpTimeFast;
+                    maxSlideSpeed = maxSlideSpeedSNormal;
+                    CalculatePhysics();
                 }
-
-                state = State.Fast;
-                animator.runtimeAnimatorController = fastAnimator;
-                animator.Play(transform.position.x < 0 ? "PlayerLeftArrive" : "PlayeRightArrive");
-
-                jumpTime = jumpTimeFast;
-                maxSlideSpeed = maxSlideSpeedSNormal;
-                CalculatePhysics();
             }
         }
         else if (collision.gameObject.tag == "Sticky")
         {
-            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated() && state != State.Sticky)
+            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated())
             {
-                // TODO: Refactor This! DRY!
-                if(state == State.Big)
+                showUpText.ShowText("Sticky Bob!");
+                if (state != State.Sticky)
                 {
-                    if (transform.position.x < 0)
+                    // TODO: Refactor This! DRY!
+                    if (state == State.Big)
                     {
-                        float originX = GetComponent<BoxCollider2D>().bounds.min.x;
-                        transform.localScale = normalScale;
-                        float newX = GetComponent<BoxCollider2D>().bounds.min.x;
-                        transform.position += new Vector3(originX - newX, 0, 0);
+                        if (transform.position.x < 0)
+                        {
+                            float originX = GetComponent<BoxCollider2D>().bounds.min.x;
+                            transform.localScale = normalScale;
+                            float newX = GetComponent<BoxCollider2D>().bounds.min.x;
+                            transform.position += new Vector3(originX - newX, 0, 0);
+                        }
+                        else
+                        {
+                            float originX = GetComponent<BoxCollider2D>().bounds.max.x;
+                            transform.localScale = normalScale;
+                            float newX = GetComponent<BoxCollider2D>().bounds.max.x;
+                            transform.position += new Vector3(originX - newX, 0, 0);
+                        }
                     }
-                    else
-                    {
-                        float originX = GetComponent<BoxCollider2D>().bounds.max.x;
-                        transform.localScale = normalScale;
-                        float newX = GetComponent<BoxCollider2D>().bounds.max.x;
-                        transform.position += new Vector3(originX - newX, 0, 0);
-                    }
+
+                    state = State.Sticky;
+                    animator.runtimeAnimatorController = stickyAnimator;
+                    animator.Play(transform.position.x < 0 ? "PlayerLeftArrive" : "PlayeRightArrive");
+
+                    jumpTime = jumpTimeNormal;
+                    maxSlideSpeed = maxSlideSpeedSticky;
+                    CalculatePhysics();
                 }
-
-                state = State.Sticky;
-                animator.runtimeAnimatorController = stickyAnimator;
-                animator.Play(transform.position.x < 0 ? "PlayerLeftArrive" : "PlayeRightArrive");
-
-                jumpTime = jumpTimeNormal;
-                maxSlideSpeed = maxSlideSpeedSticky;
-                CalculatePhysics();
             }
+        }
+        else if (collision.gameObject.tag == "DoubleJump")
+        {
+            if (!collision.gameObject.GetComponent<ActionTile>().HasBeenActivated())
+            {
+                EnableDoubleJump(true);
+
+                showUpText.ShowText("Double Jump!");
+            }
+        }
+        else if (collision.gameObject.tag == "GameOver")
+        {
+            SceneManager.LoadScene("GameOver");
         }
     }
 	

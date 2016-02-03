@@ -6,15 +6,19 @@ public class Laser : MonoBehaviour {
     public float idleTime = 1.0f;
     public float activeTime = 1.0f;
     public float prepTime = 0.5f;
+    public AudioClip laserSound;
+    public AudioClip preLaserSound;
 
     private float time = 0.0f;
     private enum State {Active, Idle, Prep};
     private State state = State.Idle;
 
     private Animator animator;
+    private BoxCollider2D collider;
 
     void Start () {
         animator = GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
 	}
 
     public bool isActive() {
@@ -43,6 +47,7 @@ public class Laser : MonoBehaviour {
                 animator.SetBool("PlayActive", false);
                 time = 0.0f;
                 state = State.Prep;
+                SoundManager.instance.PlaySingle(preLaserSound);
             }
         }
         else
@@ -54,6 +59,7 @@ public class Laser : MonoBehaviour {
                 animator.SetBool("PlayIdle", false);
                 time = 0.0f;
                 state = State.Active;
+                SoundManager.instance.PlaySingle(laserSound);
             }
         }
 

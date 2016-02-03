@@ -16,7 +16,7 @@ GameObject:
   - 95: {fileID: 9569524}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,19 +95,29 @@ MonoBehaviour:
   jumpHeight: 4
   jumpTime: 1
   maxSlideSpeed: 1
+  jumpWallVelocity: {x: 4, y: 6}
+  jumpWallVelocityFast: {x: 6, y: 14}
   recoveryTime: 1
   normalScale: {x: 4.5, y: 4.5, z: 1}
-  tilesWide: 6
+  tilesWide: 7
   rotationOnDie: 120
   scaleOnDie: 8
   normalAnimator: {fileID: 9100000, guid: f7013793934cb154faf7e72dbf72ec52, type: 2}
   fastAnimator: {fileID: 9100000, guid: e0815da0bf66b25499aff2aa633b8ef9, type: 2}
   stickyAnimator: {fileID: 9100000, guid: 82afef2925279a74792da9ca0a569466, type: 2}
+  normalJumpSound: {fileID: 8300000, guid: eea9614efd74d3843978e304e3f9ca42, type: 3}
+  bigJumpSound: {fileID: 8300000, guid: c26ca09d0cde71648a5884fc43f3fecd, type: 3}
+  fastJumpSound: {fileID: 8300000, guid: 946a521c7e736934ea61c3ed5bdc8c9f, type: 3}
+  stickyJumpSound: {fileID: 8300000, guid: eea9614efd74d3843978e304e3f9ca42, type: 3}
+  dieSound: {fileID: 8300000, guid: 3c7426c3524825d4589496126fe7c113, type: 3}
+  hurtSound: {fileID: 8300000, guid: 83f5be903be21fd43a876e34f328e0e1, type: 3}
   bigScale: 1.5
   jumpTimeNormal: 1
   jumpTimeFast: 0.5
   maxSlideSpeedSNormal: 1.5
   maxSlideSpeedSticky: 0.3
+  showUpText: {fileID: 0}
+  doubleJumpRenderer: {fileID: 0}
 --- !u!114 &11450656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,7 +171,39 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: normalJumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eea9614efd74d3843978e304e3f9ca42, type: 3}
+    - target: {fileID: 0}
+      propertyPath: bigJumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: c26ca09d0cde71648a5884fc43f3fecd, type: 3}
+    - target: {fileID: 0}
+      propertyPath: fastJumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 946a521c7e736934ea61c3ed5bdc8c9f, type: 3}
+    - target: {fileID: 0}
+      propertyPath: stickyJumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: eea9614efd74d3843978e304e3f9ca42, type: 3}
+    - target: {fileID: 0}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 83f5be903be21fd43a876e34f328e0e1, type: 3}
+    - target: {fileID: 0}
+      propertyPath: dieSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3c7426c3524825d4589496126fe7c113, type: 3}
+    - target: {fileID: 0}
+      propertyPath: jumpWallVelocityFast.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: jumpWallVelocityFast.y
+      value: 14
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 160752}

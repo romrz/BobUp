@@ -35,6 +35,8 @@ public class Spawner : MonoBehaviour {
 
     private int spawnPosition;
 
+    private float tempWallProbability;
+
     void CalculateScale() {
         float cameraHeight = Camera.main.orthographicSize * 2.0f;
         float cameraWidth = Camera.main.aspect * cameraHeight;
@@ -216,7 +218,10 @@ public class Spawner : MonoBehaviour {
 
     void Start () {
         CalculateScale();
+        tempWallProbability = wallProbability;
+        wallProbability = 100;
         Spawn();
+        wallProbability = tempWallProbability;
     }
 	
 	void Update () {
